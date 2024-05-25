@@ -7,7 +7,7 @@ use crate::layout::{
     Abs, Axes, Corners, Em, Fr, Fragment, Frame, FrameKind, LayoutMultiple, Length,
     Ratio, Regions, Rel, Sides, Size, Spacing, VElem,
 };
-use crate::util::Numeric;
+use crate::util::{Numeric, Scalar};
 use crate::visualize::{clip_rect, Paint, Stroke};
 
 /// An inline-level container that sizes content.
@@ -374,7 +374,7 @@ impl LayoutMultiple for Packed<BlockElem> {
             if sizing.x == Smart::Auto {
                 let pod = Regions::one(size, Axes::splat(false));
                 let frame = body.measure(engine, styles, pod)?.into_frame();
-                size.x = frame.width();
+                size.x = frame.width() + Abs::pt(1.0);
                 expand.x = true;
             }
 
